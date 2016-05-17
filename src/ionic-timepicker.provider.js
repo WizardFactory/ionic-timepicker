@@ -4,10 +4,12 @@ angular.module('ionic-timepicker.provider', [])
 
     var config = {
       setLabel: 'Set',
+      cancelLabel: 'Cancel',
       closeLabel: 'Close',
       inputTime: (((new Date()).getHours() * 60 * 60) + ((new Date()).getMinutes() * 60)),
       format: 12,
-      step: 15
+      step: 15,
+      buttons: 2
     };
 
     this.configTimePicker = function (inputObj) {
@@ -133,6 +135,16 @@ angular.module('ionic-timepicker.provider', [])
             $scope.mainObj.callback(totalSec);
           }
         });
+
+        if ($scope.mainObj.buttons === 3) {
+          buttons.push({
+            text: $scope.mainObj.cancelLabel,
+            type: 'button_close',
+            onTap: function (e) {
+              $scope.mainObj.callback(0);
+            }
+          });
+        }
 
         buttons.push({
           text: $scope.mainObj.closeLabel,
